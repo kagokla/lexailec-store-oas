@@ -19,6 +19,12 @@ jobs:
         run: npm run lint
       - name: Bundle
         run: npm run bundle
+      - name: Copy favicon to dist
+        run: cp docs/favicon.png dist
+      - name: Copy favicon to dist
+        run: cp docs/favicon.png dist
+      - name: Build HTML file
+        run: npm run doc
       - name: Deploy on Github pages
         run: |
           git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git

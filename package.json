@@ -12,7 +12,7 @@
     "lint": "redocly lint",
     "clean": "rimraf dist",
     "bundle": "redocly bundle -o dist/openapi.yaml",
-    "doc": "redocly build-docs dist/openapi.yaml -o dist/index.html",
+    "doc": "redocly build-docs dist/openapi.yaml -t docs/index_template.hbs -o dist/index.html",
     "build": "npm run lint && npm run clean && npm run bundle && npm run doc",
     "deploy-gh-pages": "gh-pages -d dist -u 'github-actions-bot <support+actions@github.com>'"
   }
