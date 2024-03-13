@@ -1,0 +1,7 @@
+name: customerID
+in: path
+description: Customer's identifier
+required: true
+schema:
+  type: integer
+  format: int64

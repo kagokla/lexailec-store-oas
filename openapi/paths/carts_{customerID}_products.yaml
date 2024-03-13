@@ -1,0 +1,79 @@
+get:
+  tags:
+    - Cart
+  summary: Returns the list of products in the customer's shopping cart
+  description: Returns the list of products in the customer's shopping cart
+  operationId: getCartProductsByCustomerID
+  parameters:
+    - $ref: '../components/parameters/CustomerID.yaml'
+  responses:
+    200:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '../components/schemas/Product.yaml'
+    404:
+      description: The specified customer ID does not exist
+      $ref: '../components/responses/NotFoundError.yaml'
+
+post:
+  parameters:
+    - $ref: '../components/parameters/CustomerID.yaml'
+  tags:
+    - Cart
+  summary: Adds products to the customer's shopping cart
+  description: Adds products to cart if it doesn't exist, or increases quantity by specified number of products if it does
+  operationId: addCartProductsByCustomerID
+  requestBody:
+    description: List of products
+    required: true
+    content:
+      application/json:
+        schema:
+          type: array
+          items:
+            $ref: '../components/schemas/Product.yaml'
+  responses:
+    '201':
+      description: Products added successfully
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '../components/schemas/Product.yaml'
+    '404':
+      description: The specified customer ID does not exist
+      $ref: '../components/responses/NotFoundError.yaml'
+
+put:
+  tags:
+    - Cart
+  summary: Replace products in the customer's shopping cart
+  description: Replace products in the customer's shopping cart
+  operationId: replaceProductsByCustomerID
+  parameters:
+    - $ref: '../components/parameters/CustomerID.yaml'
+  requestBody:
+    description: List of products
+    content:
+      application/json:
+        schema:
+          type: array
+          items:
+            $ref: '../components/schemas/Product.yaml'
+  responses:
+    201:
+      description: Products replaced successfully
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '../components/schemas/Product.yaml'
+    404:
+      description: The specified customer ID does not exist
+      $ref: '../components/responses/NotFoundError.yaml'

@@ -1,0 +1,33 @@
+get:
+  tags:
+    - Cart
+  summary: Returns the customer's shopping cart
+  description: Returns the shopping cart for a specific customer
+  operationId: getCartByCustomerID
+  parameters:
+    - $ref: '../components/parameters/CustomerID.yaml'
+  responses:
+    200:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas/Cart.yaml'
+    404:
+      description: The specified customer ID does not exist
+      $ref: '../components/responses/NotFoundError.yaml'
+
+delete:
+  tags:
+    - Cart
+  summary: Delete the customer's shopping cart
+  description: Deletes the shopping cart for a specific customer
+  operationId: deleteCartByCustomerID
+  parameters:
+    - $ref: '../components/parameters/CustomerID.yaml'
+  responses:
+    204:
+      description: No content
+    404:
+      description: The specified customer ID does not exist
+      $ref: '../components/responses/NotFoundError.yaml'

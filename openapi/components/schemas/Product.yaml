@@ -1,0 +1,15 @@
+description: Product in shopping cart
+type: object
+properties:
+  id:
+    description: ID of the product
+    $ref: './ID.yaml'
+  quantity:
+    description: The product's quantity
+    type: integer
+    format: int32
+    minimum: 1
+  unit_price:
+    description: The product's price per unit
+    type: number
+    format: double

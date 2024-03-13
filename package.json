@@ -1,0 +1,17 @@
+{
+  "name": "lexailec-store-openapi-spec",
+  "version": "1.0.0",
+  "dependencies": {
+    "@redocly/cli": "^1.10.3",
+    "rimraf": "^5.0.5"
+  },
+  "private": true,
+  "scripts": {
+    "preview": "redocly preview-docs -p 7080",
+    "lint": "redocly lint",
+    "clean": "rimraf dist",
+    "bundle": "redocly bundle -o dist/openapi",
+    "doc": "redoc-cli bundle dist/openapi.yaml -o dist/redoc.html --options dist/.redoc.json && node scripts/copyDistAssets.js",
+    "build": "npm run lint && npm run clean && npm run bundle && npm run doc"
+  }
+}

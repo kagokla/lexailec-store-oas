@@ -1,0 +1,43 @@
+openapi: 3.1.0
+info:
+  version: 1.0.0
+  title: LEXAILEC online shopping store - OpenAPI specification
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  description: >
+    # Introduction
+    
+    This API definition is a good starting point, If you're aiming to use the API provided by the shopping store.
+
+tags:
+  - name: Cart
+    description: Operations about shopping carts.
+  - name: User
+    description: Operations about customers.
+  - name: Order
+    description: Operations about orders.
+
+x-tagGroups:
+  - name: API
+    tags:
+      - User
+      - Cart
+      - Order
+
+servers:
+  - url: https://lexailec.com/api/v1
+
+paths:
+  /carts/{customerID}:
+    $ref: paths/carts_{customerID}.yaml
+  /carts/{customerID}/products:
+    $ref: paths/carts_{customerID}_products.yaml
+
+security:
+  - bearerAuth: [ ]
+
+components:
+  securitySchemes:
+    bearerAuth:
+      $ref: components/securitySchemes/BearerAuth.yaml
