@@ -20,4 +20,6 @@ jobs:
       - name: Bundle
         run: npm run bundle
       - name: Deploy on gh-pages
-        run: npm run deploy
+        run: npm run deploy-gh-pages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

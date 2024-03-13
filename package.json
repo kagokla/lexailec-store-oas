@@ -14,6 +14,6 @@
     "bundle": "redocly bundle -o dist/openapi",
     "doc": "redoc-cli bundle dist/openapi.yaml -o dist/redoc.html --options dist/.redoc.json && node scripts/copyDistAssets.js",
     "build": "npm run lint && npm run clean && npm run bundle && npm run doc",
-    "deploy": "gh-pages -d dist"
+    "deploy-gh-pages": "gh-pages -d dist -u 'github-actions-bot <support+actions@github.com>'"
   }
 }
