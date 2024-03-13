@@ -19,3 +19,5 @@ jobs:
         run: npm run lint
       - name: Bundle
         run: npm run bundle
+      - name: Deploy on gh-pages
+        run: npm run deploy

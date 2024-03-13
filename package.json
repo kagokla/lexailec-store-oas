@@ -2,6 +2,7 @@
   "name": "lexailec-store-openapi-spec",
   "version": "1.0.0",
   "dependencies": {
+    "gh-pages": "^6.1.1",
     "@redocly/cli": "^1.10.3",
     "rimraf": "^5.0.5"
   },
@@ -12,6 +13,7 @@
     "clean": "rimraf dist",
     "bundle": "redocly bundle -o dist/openapi",
     "doc": "redoc-cli bundle dist/openapi.yaml -o dist/redoc.html --options dist/.redoc.json && node scripts/copyDistAssets.js",
-    "build": "npm run lint && npm run clean && npm run bundle && npm run doc"
+    "build": "npm run lint && npm run clean && npm run bundle && npm run doc",
+    "deploy": "gh-pages -d dist"
   }
 }
