@@ -1,0 +1,9 @@
+description: Forbidden
+content:
+  application/json:
+    schema:
+      $ref: ../schemas/Error.yaml
+    example:
+      status: 403
+      title: Forbidden
+      detail: Resource not authorized

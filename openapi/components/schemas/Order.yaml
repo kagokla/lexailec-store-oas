@@ -1,0 +1,53 @@
+OrderRequest:
+  description: Order request
+  required:
+    - customer_id
+    - payment
+  type: object
+  properties:
+    customer_id:
+      description: ID of the customer who placed the order
+      $ref: './ID.yaml'
+    payment:
+      description: Order's payment
+      type: object
+      properties:
+        amount:
+          description: Order's total amount
+          type: number
+          format: double
+        method:
+          description: Payment method
+          type: string
+          enum: [ VISA, MASTERCARD, PAYPAL ]
+    shipment:
+      description: Order's shipment
+      type: object
+      properties:
+        address:
+          description: Shipping address
+          type: string
+
+OrderResponse:
+  description: Order response
+  type: object
+  properties:
+    order_id:
+      description: ID of the order
+      $ref: './ID.yaml'
+    customer_id:
+      description: ID of the customer who placed the order
+      $ref: './ID.yaml'
+    status:
+      description: Current status of the order
+      type: string
+      enum: [ SUBMITTED, PROCESSING, COMPLETED ]
+    payment_id:
+      description: Order's payment identifier
+      type: string
+      format: uuid
+    shipment_id:
+      description: Order's shipment identifier
+      type: string
+      format: uuid
+

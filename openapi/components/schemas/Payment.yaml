@@ -1,0 +1,18 @@
+description: Order's payment details
+type: object
+properties:
+  order_id:
+    description: ID of the order
+    $ref: './ID.yaml'
+  amount:
+    description: Total amount paid by the customer
+    type: number
+    format: double
+  method:
+    description: Payment method used by the customer
+    type: string
+    enum: [ VISA, MASTERCARD, PAYPAL ]
+  status:
+    description: Current status of the order
+    type: string
+    enum: [ SUBMITTED, PROCESSING, COMPLETED ]

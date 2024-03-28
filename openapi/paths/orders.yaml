@@ -1,0 +1,46 @@
+post:
+  tags:
+    - Order
+  summary: Creates an order
+  description: Creates an order
+  operationId: addOrder
+  requestBody:
+    description: New order request
+    content:
+      application/json:
+        schema:
+          $ref: '../components/schemas/Order.yaml#/OrderRequest'
+  responses:
+    201:
+      description: Order successfully created
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '../components/schemas/Order.yaml#/OrderResponse'
+    403:
+      $ref: '../components/responses/ForbiddenError.yaml'
+
+get:
+  tags:
+    - Order
+  summary: Returns orders
+  description: Returns orders filtered by customer's identifier if provided
+  operationId: getOrdersFilteredByCustomerIdIfProvided
+  parameters:
+    - $ref: '../components/parameters/QueryCustomerID.yaml'
+  responses:
+    200:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '../components/schemas/Order.yaml#/OrderResponse'
+    403:
+      $ref: '../components/responses/ForbiddenError.yaml'
+    404:
+      description: The specified customer ID does not exist
+      $ref: '../components/responses/NotFoundError.yaml'

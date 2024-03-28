@@ -1,0 +1,17 @@
+get:
+  tags:
+    - Payment
+  summary: Returns payment details related to an order
+  description: Returns payment details related to an order by the order's identifier
+  operationId: getPaymentByOrderID
+  parameters:
+    - $ref: '../components/parameters/PathOrderID.yaml'
+  responses:
+    200:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas/Payment.yaml'
+    403:
+      $ref: '../components/responses/ForbiddenError.yaml'

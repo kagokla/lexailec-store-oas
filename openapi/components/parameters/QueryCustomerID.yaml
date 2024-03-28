@@ -1,7 +1,6 @@
 name: customerID
-in: path
+in: query
 description: Customer's identifier
-required: true
 schema:
-  type: integer
-  format: int64
+  type: string
+  format: uuid

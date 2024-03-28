@@ -1,0 +1,17 @@
+get:
+  tags:
+    - Order
+  summary: Returns an order's details
+  description: Returns an order's details by its ID
+  operationId: getOrderByID
+  parameters:
+    - $ref: '../components/parameters/PathOrderID.yaml'
+  responses:
+    200:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas/Order.yaml#/OrderResponse'
+    403:
+      $ref: '../components/responses/ForbiddenError.yaml'

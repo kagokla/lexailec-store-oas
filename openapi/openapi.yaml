@@ -10,31 +10,44 @@ info:
   description: >
     # Introduction
     
-    This API definition is a good starting point, If you're aiming to use the API provided by the shopping store.
+    This API definition is a good starting point, If you're aiming to use the API provided by [the LEXAILEC shopping store](https://github.com/kagokla/lexailec-store)
 
 tags:
   - name: Cart
     description: Operations about shopping carts.
-  - name: User
+  - name: Customer
     description: Operations about customers.
   - name: Order
     description: Operations about orders.
+  - name: Payment
+    description: Operations about payments.
 
 x-tagGroups:
   - name: API
     tags:
-      - User
+      - Customer
       - Cart
       - Order
+      - Payment
 
 servers:
   - url: https://lexailec.com/api/v1
 
 paths:
+  /carts:
+    $ref: paths/carts.yaml
   /carts/{customerID}:
     $ref: paths/carts_{customerID}.yaml
   /carts/{customerID}/products:
     $ref: paths/carts_{customerID}_products.yaml
+  /orders:
+    $ref: paths/orders.yaml
+  /orders/{orderID}:
+    $ref: paths/orders_{orderID}.yaml
+  /payments:
+    $ref: paths/payments.yaml
+  /payments/{orderID}:
+    $ref: paths/payments_{orderID}.yaml
 
 security:
   - bearerAuth: [ ]

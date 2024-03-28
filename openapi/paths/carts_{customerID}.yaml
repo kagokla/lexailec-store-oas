@@ -5,7 +5,7 @@ get:
   description: Returns the shopping cart for a specific customer
   operationId: getCartByCustomerID
   parameters:
-    - $ref: '../components/parameters/CustomerID.yaml'
+    - $ref: '../components/parameters/PathCustomerID.yaml'
   responses:
     200:
       description: Successful operation
@@ -13,6 +13,8 @@ get:
         application/json:
           schema:
             $ref: '../components/schemas/Cart.yaml'
+    403:
+      $ref: '../components/responses/ForbiddenError.yaml'
     404:
       description: The specified customer ID does not exist
       $ref: '../components/responses/NotFoundError.yaml'
@@ -24,10 +26,12 @@ delete:
   description: Deletes the shopping cart for a specific customer
   operationId: deleteCartByCustomerID
   parameters:
-    - $ref: '../components/parameters/CustomerID.yaml'
+    - $ref: '../components/parameters/PathCustomerID.yaml'
   responses:
     204:
       description: No content
+    403:
+      $ref: '../components/responses/ForbiddenError.yaml'
     404:
       description: The specified customer ID does not exist
       $ref: '../components/responses/NotFoundError.yaml'

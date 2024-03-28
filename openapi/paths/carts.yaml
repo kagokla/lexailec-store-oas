@@ -1,0 +1,18 @@
+get:
+  tags:
+    - Cart
+  summary: Returns all shopping carts
+  description: Returns all shopping carts
+  operationId: getCarts
+  responses:
+    200:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '../components/schemas/Cart.yaml'
+
+    403:
+      $ref: '../components/responses/ForbiddenError.yaml'

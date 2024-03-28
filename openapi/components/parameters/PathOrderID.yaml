@@ -1,0 +1,7 @@
+name: orderID
+in: path
+description: Order's identifier
+required: true
+schema:
+  type: string
+  format: uuid
