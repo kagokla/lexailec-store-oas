@@ -42,12 +42,23 @@ OrderResponse:
       description: Current status of the order
       type: string
       enum: [ SUBMITTED, PROCESSING, COMPLETED ]
-    payment_id:
-      description: Order's payment identifier
-      type: string
-      format: uuid
-    shipment_id:
-      description: Order's shipment identifier
-      type: string
-      format: uuid
+    _links:
+      type: object
+      properties:
+        payment:
+          description: Order's payment identifier
+          type: object
+          properties:
+            href:
+              type: string
+              format: uri
+              example: /payments/{orderID}
+        shipment:
+          description: Order's shipment identifier
+          type: object
+          properties:
+            href:
+              type: string
+              format: uri
+              example: /shipments/{orderID}
 

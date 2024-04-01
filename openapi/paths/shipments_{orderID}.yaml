@@ -1,0 +1,17 @@
+get:
+  tags:
+    - Shipment
+  summary: Returns shipment details related to an order
+  description: Returns shipment details related to an order by the order's identifier
+  operationId: getShipmentByOrderID
+  parameters:
+    - $ref: '../components/parameters/PathOrderID.yaml'
+  responses:
+    200:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas/Shipment.yaml'
+    403:
+      $ref: '../components/responses/ForbiddenError.yaml'

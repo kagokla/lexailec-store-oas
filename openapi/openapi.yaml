@@ -21,6 +21,8 @@ tags:
     description: Operations about orders.
   - name: Payment
     description: Operations about payments.
+  - name: Shipment
+    description: Operations about shipments.
 
 x-tagGroups:
   - name: API
@@ -29,6 +31,7 @@ x-tagGroups:
       - Cart
       - Order
       - Payment
+      - Shipment
 
 servers:
   - url: https://lexailec.com/api/v1
@@ -48,6 +51,10 @@ paths:
     $ref: paths/payments.yaml
   /payments/{orderID}:
     $ref: paths/payments_{orderID}.yaml
+  /shipments:
+    $ref: paths/shipments.yaml
+  /shipments/{orderID}:
+    $ref: paths/shipments_{orderID}.yaml
 
 security:
   - bearerAuth: [ ]

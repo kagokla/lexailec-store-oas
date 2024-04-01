@@ -1,9 +1,9 @@
-Shipment:
-  type: object
-  properties:
-    order_id:
-      description: ID of the order
-      $ref: './ID.yaml'
-    address:
-      description: Shipping address
-      type: string
+description: Order's shipment details
+type: object
+properties:
+  order_id:
+    description: ID of the order
+    $ref: './ID.yaml'
+  address:
+    description: Shipping address
+    type: string

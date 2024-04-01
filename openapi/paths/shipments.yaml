@@ -1,9 +1,9 @@
 get:
   tags:
-    - Payment
-  summary: Returns all payments
-  description: Returns all payments
-  operationId: getPayments
+    - Shipment
+  summary: Returns all shipments
+  description: Returns all shipments
+  operationId: getShipments
   responses:
     200:
       description: Successful operation
@@ -12,6 +12,6 @@ get:
           schema:
             type: array
             items:
-              $ref: '../components/schemas/Payment.yaml'
+              $ref: '../components/schemas/Shipment.yaml'
     403:
       $ref: '../components/responses/ForbiddenError.yaml'
