@@ -23,6 +23,8 @@ tags:
     description: Operations about orders.
   - name: Payment
     description: Operations about payments.
+  - name: Shipment
+    description: Operations about shipments.
 paths:
   /carts:
     get:
@@ -245,9 +247,6 @@ paths:
                   $ref: '#/components/schemas/Payment'
         '403':
           $ref: '#/components/responses/ForbiddenError'
-        '404':
-          description: The specified customer ID does not exist
-          $ref: '#/components/responses/NotFoundError'
   /payments/{orderID}:
     get:
       tags:
@@ -264,6 +263,42 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Payment'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+  /shipments:
+    get:
+      tags:
+        - Shipment
+      summary: Returns all shipments
+      description: Returns all shipments
+      operationId: getShipments
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Shipment'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+  /shipments/{orderID}:
+    get:
+      tags:
+        - Shipment
+      summary: Returns shipment details related to an order
+      description: Returns shipment details related to an order by the order's identifier
+      operationId: getShipmentByOrderID
+      parameters:
+        - $ref: '#/components/parameters/PathOrderID'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Shipment'
         '403':
           $ref: '#/components/responses/ForbiddenError'
 components:
@@ -335,14 +370,25 @@ components:
             - SUBMITTED
             - PROCESSING
             - COMPLETED
-        payment_id:
-          description: Order's payment identifier
-          type: string
-          format: uuid
-        shipment_id:
-          description: Order's shipment identifier
-          type: string
-          format: uuid
+        _links:
+          type: object
+          properties:
+            payment:
+              description: Order's payment identifier
+              type: object
+              properties:
+                href:
+                  type: string
+                  format: uri
+                  example: /payments/{orderID}
+            shipment:
+              description: Order's shipment identifier
+              type: object
+              properties:
+                href:
+                  type: string
+                  format: uri
+                  example: /shipments/{orderID}
     OrderRequest:
       description: Order request
       required:
@@ -400,6 +446,16 @@ components:
             - SUBMITTED
             - PROCESSING
             - COMPLETED
+    Shipment:
+      description: Order's shipment details
+      type: object
+      properties:
+        order_id:
+          description: ID of the order
+          $ref: '#/components/schemas/ID'
+        address:
+          description: Shipping address
+          type: string
   responses:
     ForbiddenError:
       description: Forbidden
@@ -452,3 +508,4 @@ x-tagGroups:
       - Cart
       - Order
       - Payment
+      - Shipment
