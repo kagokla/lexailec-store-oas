@@ -1,8 +1,8 @@
 put:
   tags:
     - Cart
-  summary: Replace a product in the customer's shopping cart
-  description: Replace a product in the customer's shopping cart
+  summary: Replace an item in the customer's shopping cart
+  description: Replace an item in the customer's shopping cart
   operationId: replaceCartItemByCustomerIDAndCartItemId
   parameters:
     - $ref: '../components/parameters/PathCustomerID.yaml'
