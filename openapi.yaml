@@ -109,18 +109,15 @@ paths:
         - $ref: '#/components/parameters/PathCustomerID'
       tags:
         - Cart
-      summary: Adds products to the customer's shopping cart
-      description: Adds products to cart if it doesn't exist, or increases quantity by specified number of products if it does
+      summary: Adds a product to the customer's shopping cart
+      description: Adds a product to cart if it doesn't exist, or increases quantity by specified number of products if it does
       operationId: addCartProductsByCustomerID
       requestBody:
-        description: List of products
         required: true
         content:
           application/json:
             schema:
-              type: array
-              items:
-                $ref: '#/components/schemas/Product'
+              $ref: '#/components/schemas/Product'
       responses:
         '200':
           description: Products added successfully
@@ -138,19 +135,16 @@ paths:
     put:
       tags:
         - Cart
-      summary: Replace products in the customer's shopping cart
-      description: Replace products in the customer's shopping cart
+      summary: Replace a product in the customer's shopping cart
+      description: Replace a product in the customer's shopping cart
       operationId: replaceProductsByCustomerID
       parameters:
         - $ref: '#/components/parameters/PathCustomerID'
       requestBody:
-        description: List of products
         content:
           application/json:
             schema:
-              type: array
-              items:
-                $ref: '#/components/schemas/Product'
+              $ref: '#/components/schemas/Product'
       responses:
         '200':
           description: Products replaced successfully
