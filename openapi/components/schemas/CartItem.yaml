@@ -1,4 +1,4 @@
-description: Product available in the shop
+description: Product in the shopping cart
 type: object
 properties:
   id:
@@ -9,7 +9,3 @@ properties:
     type: integer
     format: int32
     minimum: 1
-  unit_price:
-    description: The product's price per unit
-    type: number
-    format: double

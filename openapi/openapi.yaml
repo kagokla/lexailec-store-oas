@@ -41,8 +41,10 @@ paths:
     $ref: paths/carts.yaml
   /carts/{customerID}:
     $ref: paths/carts_{customerID}.yaml
-  /carts/{customerID}/products:
-    $ref: paths/carts_{customerID}_products.yaml
+  /carts/{customerID}/items:
+    $ref: paths/carts_{customerID}_items.yaml
+  /carts/{customerID}/items/{cartItemID}:
+    $ref: paths/carts_{customerID}_items_{cartItemID}.yaml
   /orders:
     $ref: paths/orders.yaml
   /orders/{orderID}:

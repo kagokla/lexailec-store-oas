@@ -1,0 +1,7 @@
+name: cartItemID
+in: path
+description: Cart's item identifier
+required: true
+schema:
+  type: string
+  format: uuid

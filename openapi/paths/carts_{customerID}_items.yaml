@@ -1,0 +1,51 @@
+get:
+  tags:
+    - Cart
+  summary: Returns the list of items in the customer's shopping cart
+  description: Returns the list of items in the customer's shopping cart
+  operationId: getCartItemsByCustomerID
+  parameters:
+    - $ref: '../components/parameters/PathCustomerID.yaml'
+  responses:
+    200:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '../components/schemas/Product.yaml'
+    403:
+      $ref: '../components/responses/ForbiddenError.yaml'
+    404:
+      description: The specified customer ID does not exist
+      $ref: '../components/responses/NotFoundError.yaml'
+
+post:
+  parameters:
+    - $ref: '../components/parameters/PathCustomerID.yaml'
+  tags:
+    - Cart
+  summary: Adds an item to the customer's shopping cart
+  description: Adds an item to cart if it doesn't exist, or increases quantity by specified number of items if it does
+  operationId: addCartItemByCustomerID
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../components/schemas/CartItem.yaml'
+  responses:
+    200:
+      description: Items added successfully
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '../components/schemas/Product.yaml'
+    403:
+      $ref: '../components/responses/ForbiddenError.yaml'
+    404:
+      description: The specified customer ID does not exist
+      $ref: '../components/responses/NotFoundError.yaml'

@@ -1,0 +1,28 @@
+put:
+  tags:
+    - Cart
+  summary: Replace a product in the customer's shopping cart
+  description: Replace a product in the customer's shopping cart
+  operationId: replaceCartItemByCustomerIDAndCartItemId
+  parameters:
+    - $ref: '../components/parameters/PathCustomerID.yaml'
+    - $ref: '../components/parameters/PathCartItemID.yaml'
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: '../components/schemas/CartItem.yaml'
+  responses:
+    200:
+      description: Products replaced successfully
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '../components/schemas/Product.yaml'
+    403:
+      $ref: '../components/responses/ForbiddenError.yaml'
+    404:
+      description: The specified customer ID does not exist
+      $ref: '../components/responses/NotFoundError.yaml'
