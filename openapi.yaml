@@ -81,13 +81,13 @@ paths:
         '404':
           description: The specified customer ID does not exist
           $ref: '#/components/responses/NotFoundError'
-  /carts/{customerID}/products:
+  /carts/{customerID}/items:
     get:
       tags:
         - Cart
-      summary: Returns the list of products in the customer's shopping cart
-      description: Returns the list of products in the customer's shopping cart
-      operationId: getCartProductsByCustomerID
+      summary: Returns the list of items in the customer's shopping cart
+      description: Returns the list of items in the customer's shopping cart
+      operationId: getCartItemsByCustomerID
       parameters:
         - $ref: '#/components/parameters/PathCustomerID'
       responses:
@@ -109,18 +109,18 @@ paths:
         - $ref: '#/components/parameters/PathCustomerID'
       tags:
         - Cart
-      summary: Adds a product to the customer's shopping cart
-      description: Adds a product to cart if it doesn't exist, or increases quantity by specified number of products if it does
-      operationId: addCartProductsByCustomerID
+      summary: Adds an item to the customer's shopping cart
+      description: Adds an item to cart if it doesn't exist, or increases quantity by specified number of items if it does
+      operationId: addCartItemByCustomerID
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Product'
+              $ref: '#/components/schemas/CartItem'
       responses:
         '200':
-          description: Products added successfully
+          description: Items added successfully
           content:
             application/json:
               schema:
@@ -132,19 +132,21 @@ paths:
         '404':
           description: The specified customer ID does not exist
           $ref: '#/components/responses/NotFoundError'
+  /carts/{customerID}/items/{cartItemID}:
     put:
       tags:
         - Cart
       summary: Replace a product in the customer's shopping cart
       description: Replace a product in the customer's shopping cart
-      operationId: replaceProductsByCustomerID
+      operationId: replaceCartItemByCustomerIDAndCartItemId
       parameters:
         - $ref: '#/components/parameters/PathCustomerID'
+        - $ref: '#/components/parameters/PathCartItemID'
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Product'
+              $ref: '#/components/schemas/CartItem'
       responses:
         '200':
           description: Products replaced successfully
@@ -307,7 +309,7 @@ components:
       type: string
       format: uuid
     Product:
-      description: Product in shopping cart
+      description: Product available in the shop
       type: object
       properties:
         id:
@@ -329,11 +331,15 @@ components:
         customer_id:
           description: ID of the customer who owns the cart
           $ref: '#/components/schemas/ID'
-        products:
-          description: Collection of products in cart
+        items:
+          description: Collection of items in cart
           type: array
           items:
             $ref: '#/components/schemas/Product'
+        total:
+          description: The computed amount of cart's items
+          type: number
+          format: double
     Error:
       required:
         - status
@@ -347,6 +353,18 @@ components:
           type: string
         detail:
           type: string
+    CartItem:
+      description: Product in the shopping cart
+      type: object
+      properties:
+        id:
+          description: ID of the product
+          $ref: '#/components/schemas/ID'
+        quantity:
+          description: The product's quantity
+          type: integer
+          format: int32
+          minimum: 1
     OrderResponse:
       description: Order response
       type: object
@@ -476,6 +494,14 @@ components:
       name: customerID
       in: path
       description: Customer's identifier
+      required: true
+      schema:
+        type: string
+        format: uuid
+    PathCartItemID:
+      name: cartItemID
+      in: path
+      description: Cart's item identifier
       required: true
       schema:
         type: string
