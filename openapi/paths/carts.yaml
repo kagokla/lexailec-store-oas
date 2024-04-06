@@ -12,7 +12,7 @@ get:
           schema:
             type: array
             items:
-              $ref: '../components/schemas/Cart.yaml'
+              $ref: '../components/schemas/Cart.yaml#/CartResponse'
 
     403:
       $ref: '../components/responses/ForbiddenError.yaml'

@@ -12,7 +12,33 @@ get:
       content:
         application/json:
           schema:
-            $ref: '../components/schemas/Cart.yaml'
+            $ref: '../components/schemas/Cart.yaml#/CartResponse'
+    403:
+      $ref: '../components/responses/ForbiddenError.yaml'
+    404:
+      description: The specified customer ID does not exist
+      $ref: '../components/responses/NotFoundError.yaml'
+
+put:
+  tags:
+    - Cart
+  summary: Update the customer's shopping cart currency
+  description: Update the currency applied to the customer's shopping cart
+  operationId: updateCartCurrencyByCustomerID
+  parameters:
+    - $ref: '../components/parameters/PathCustomerID.yaml'
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: '../components/schemas/Cart.yaml#/CartUpdateRequest'
+  responses:
+    200:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas/Cart.yaml#/CartResponse'
     403:
       $ref: '../components/responses/ForbiddenError.yaml'
     404:
