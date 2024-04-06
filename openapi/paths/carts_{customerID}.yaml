@@ -23,7 +23,7 @@ put:
   tags:
     - Cart
   summary: Update the customer's shopping cart currency
-  description: Update the currency applied to the customer's shopping cart
+  description: Update the currency applied to the customer's shopping cart. Default's currency is EUR.
   operationId: updateCartCurrencyByCustomerID
   parameters:
     - $ref: '../components/parameters/PathCustomerID.yaml'
