@@ -41,7 +41,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Cart'
+                  $ref: '#/components/schemas/CartResponse'
         '403':
           $ref: '#/components/responses/ForbiddenError'
   /carts/{customerID}:
@@ -59,7 +59,32 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Cart'
+                $ref: '#/components/schemas/CartResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+        '404':
+          description: The specified customer ID does not exist
+          $ref: '#/components/responses/NotFoundError'
+    put:
+      tags:
+        - Cart
+      summary: Update the customer's shopping cart currency
+      description: Update the currency applied to the customer's shopping cart
+      operationId: updateCartCurrencyByCustomerID
+      parameters:
+        - $ref: '#/components/parameters/PathCustomerID'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CartUpdateRequest'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CartResponse'
         '403':
           $ref: '#/components/responses/ForbiddenError'
         '404':
@@ -324,7 +349,7 @@ components:
           description: The product's price per unit
           type: number
           format: double
-    Cart:
+    CartResponse:
       description: Customer's shopping cart
       type: object
       properties:
@@ -340,6 +365,11 @@ components:
           description: The computed amount of cart's items
           type: number
           format: double
+        currency:
+          description: 3 letter currency code as defined by ISO-4217
+          type: string
+          format: iso-4217
+          example: EUR
     Error:
       required:
         - status
@@ -353,6 +383,15 @@ components:
           type: string
         detail:
           type: string
+    CartUpdateRequest:
+      description: Request body to update customer's shopping cart
+      type: object
+      properties:
+        currency:
+          description: 3 letter currency code as defined by ISO-4217
+          type: string
+          format: iso-4217
+          example: EUR
     CartItem:
       description: Product in the shopping cart
       type: object
