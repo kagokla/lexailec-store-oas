@@ -20,7 +20,7 @@ CartResponse:
       type: array
       items:
         $ref: './Product.yaml'
-    total:
+    subTotal:
       description: The computed amount of cart's items
       type: number
       format: double
