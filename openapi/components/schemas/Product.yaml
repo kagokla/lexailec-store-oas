@@ -13,3 +13,5 @@ properties:
     description: The product's price per unit
     type: number
     format: double
+  currency:
+    $ref: './Currency.yaml'

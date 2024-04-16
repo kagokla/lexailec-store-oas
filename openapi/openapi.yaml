@@ -13,22 +13,25 @@ info:
     This API definition is a good starting point, If you're aiming to use the API provided by [the LEXAILEC shopping store](https://github.com/kagokla/lexailec-store)
 
 tags:
+  - name: Inventory
+    description: Operations related to products inventory.
   - name: Cart
-    description: Operations about shopping carts.
+    description: Operations related to shopping carts.
   - name: Customer
-    description: Operations about customers.
+    description: Operations related to customers.
   - name: Order
-    description: Operations about orders.
+    description: Operations related to orders.
   - name: Payment
-    description: Operations about payments.
+    description: Operations related to payments.
   - name: Shipment
-    description: Operations about shipments.
+    description: Operations related to shipments.
 
 x-tagGroups:
   - name: API
     tags:
-      - Customer
+      - Inventory
       - Cart
+      - Customer
       - Order
       - Payment
       - Shipment
@@ -37,6 +40,10 @@ servers:
   - url: https://lexailec.com/api/v1
 
 paths:
+  /products:
+    $ref: paths/products.yaml
+  /products/{productID}:
+    $ref: paths/products_{productID}.yaml
   /carts:
     $ref: paths/carts.yaml
   /carts/{customerID}:

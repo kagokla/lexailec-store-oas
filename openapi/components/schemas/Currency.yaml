@@ -1,0 +1,4 @@
+description: 3 letter currency code as defined by ISO-4217
+type: string
+format: iso-4217
+example: EUR

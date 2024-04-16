@@ -1,0 +1,25 @@
+get:
+  tags:
+    - Inventory
+  summary: Returns all products available in the inventory
+  description: Returns all products available in the inventory, filtered by name if provided
+  operationId: getProductsFilteredByNameIfProvided
+  parameters:
+    - $ref: '../components/parameters/QueryProductName.yaml'
+  responses:
+    200:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '../components/schemas/Product.yaml'
+              pagination:
+                $ref: '../components/schemas/PaginationMetadata.yaml'
+
+    403:
+      $ref: '../components/responses/ForbiddenError.yaml'

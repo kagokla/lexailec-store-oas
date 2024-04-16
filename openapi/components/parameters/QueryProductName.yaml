@@ -1,0 +1,6 @@
+name: name
+in: query
+description: Product's name
+schema:
+  type: string
+  format: uuid

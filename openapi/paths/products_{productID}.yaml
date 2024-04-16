@@ -1,0 +1,20 @@
+get:
+  tags:
+    - Inventory
+  summary: Returns a product
+  description: Returns a product
+  operationId: getProductByID
+  parameters:
+    - $ref: '../components/parameters/PathProductID.yaml'
+  responses:
+    200:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas/Product.yaml'
+    403:
+      $ref: '../components/responses/ForbiddenError.yaml'
+    404:
+      description: The specified product ID does not exist
+      $ref: '../components/responses/NotFoundError.yaml'
