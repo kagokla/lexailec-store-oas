@@ -462,6 +462,7 @@ components:
         size:
           description: Number of entries in the current page
           type: integer
+          minimum: 1
           example: 1
           readOnly: true
         total:
