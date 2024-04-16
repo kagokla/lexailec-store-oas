@@ -3,10 +3,7 @@ CartUpdateRequest:
   type: object
   properties:
     currency:
-      description: 3 letter currency code as defined by ISO-4217
-      type: string
-      format: iso-4217
-      example: EUR
+      $ref: './Currency.yaml'
 
 CartResponse:
   description: Customer's shopping cart
@@ -19,14 +16,11 @@ CartResponse:
       description: Collection of items in cart
       type: array
       items:
-        $ref: './Product.yaml'
+        $ref: './CartLineItem.yaml'
     subTotal:
       description: The computed amount of cart's items
       type: number
       format: double
     currency:
-      description: 3 letter currency code as defined by ISO-4217
-      type: string
-      format: iso-4217
-      example: EUR
+      $ref: './Currency.yaml'
 

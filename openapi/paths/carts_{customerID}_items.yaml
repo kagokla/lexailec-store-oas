@@ -34,7 +34,7 @@ post:
     content:
       application/json:
         schema:
-          $ref: '../components/schemas/CartItem.yaml'
+          $ref: '../components/schemas/CartLineItem.yaml'
   responses:
     200:
       description: Items added successfully
