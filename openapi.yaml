@@ -15,17 +15,65 @@ servers:
 security:
   - bearerAuth: []
 tags:
+  - name: Inventory
+    description: Operations related to products inventory.
   - name: Cart
-    description: Operations about shopping carts.
+    description: Operations related to shopping carts.
   - name: Customer
-    description: Operations about customers.
+    description: Operations related to customers.
   - name: Order
-    description: Operations about orders.
+    description: Operations related to orders.
   - name: Payment
-    description: Operations about payments.
+    description: Operations related to payments.
   - name: Shipment
-    description: Operations about shipments.
+    description: Operations related to shipments.
 paths:
+  /products:
+    get:
+      tags:
+        - Inventory
+      summary: Returns all products available in the inventory
+      description: Returns all products available in the inventory, filtered by name if provided
+      operationId: getProductsFilteredByNameIfProvided
+      parameters:
+        - $ref: '#/components/parameters/QueryProductName'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Product'
+                  pagination:
+                    $ref: '#/components/schemas/PaginationMetadata'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+  /products/{productID}:
+    get:
+      tags:
+        - Inventory
+      summary: Returns a product
+      description: Returns a product
+      operationId: getProductByID
+      parameters:
+        - $ref: '#/components/parameters/PathProductID'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+        '404':
+          description: The specified product ID does not exist
+          $ref: '#/components/responses/NotFoundError'
   /carts:
     get:
       tags:
@@ -142,7 +190,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CartItem'
+              $ref: '#/components/schemas/CartLineItem'
       responses:
         '200':
           description: Items added successfully
@@ -171,7 +219,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CartItem'
+              $ref: '#/components/schemas/CartLineItem'
       responses:
         '200':
           description: Products replaced successfully
@@ -329,10 +377,62 @@ components:
       scheme: bearer
       bearerFormat: JWT
       description: JSON Web Token (JWT) based authentication
+  parameters:
+    QueryProductName:
+      name: name
+      in: query
+      description: Product's name
+      schema:
+        type: string
+        format: uuid
+    PathProductID:
+      name: productID
+      in: path
+      description: Product's identifier
+      required: true
+      schema:
+        type: string
+        format: uuid
+    PathCustomerID:
+      name: customerID
+      in: path
+      description: Customer's identifier
+      required: true
+      schema:
+        type: string
+        format: uuid
+    PathCartItemID:
+      name: cartItemID
+      in: path
+      description: Cart's item identifier
+      required: true
+      schema:
+        type: string
+        format: uuid
+    QueryCustomerID:
+      name: customerID
+      in: query
+      description: Customer's identifier
+      schema:
+        type: string
+        format: uuid
+    PathOrderID:
+      name: orderID
+      in: path
+      description: Order's identifier
+      required: true
+      schema:
+        type: string
+        format: uuid
   schemas:
     ID:
       type: string
       format: uuid
+    Currency:
+      description: 3 letter currency code as defined by ISO-4217
+      type: string
+      format: iso-4217
+      example: EUR
     Product:
       description: Product available in the shop
       type: object
@@ -349,27 +449,26 @@ components:
           description: The product's price per unit
           type: number
           format: double
-    CartResponse:
-      description: Customer's shopping cart
+        currency:
+          $ref: '#/components/schemas/Currency'
+    PaginationMetadata:
+      description: Pagination metadata
       type: object
       properties:
-        customer_id:
-          description: ID of the customer who owns the cart
-          $ref: '#/components/schemas/ID'
-        items:
-          description: Collection of items in cart
-          type: array
-          items:
-            $ref: '#/components/schemas/Product'
-        subTotal:
-          description: The computed amount of cart's items
-          type: number
-          format: double
-        currency:
-          description: 3 letter currency code as defined by ISO-4217
-          type: string
-          format: iso-4217
-          example: EUR
+        page:
+          description: Current page
+          type: integer
+          readOnly: true
+        size:
+          description: Number of entries in the current page
+          type: integer
+          example: 1
+          readOnly: true
+        total:
+          description: number of total entries across all pages
+          type: integer
+          example: 1
+          readOnly: true
     Error:
       required:
         - status
@@ -383,16 +482,7 @@ components:
           type: string
         detail:
           type: string
-    CartUpdateRequest:
-      description: Request body to update customer's shopping cart
-      type: object
-      properties:
-        currency:
-          description: 3 letter currency code as defined by ISO-4217
-          type: string
-          format: iso-4217
-          example: EUR
-    CartItem:
+    CartLineItem:
       description: Product in the shopping cart
       type: object
       properties:
@@ -404,6 +494,30 @@ components:
           type: integer
           format: int32
           minimum: 1
+    CartResponse:
+      description: Customer's shopping cart
+      type: object
+      properties:
+        customer_id:
+          description: ID of the customer who owns the cart
+          $ref: '#/components/schemas/ID'
+        items:
+          description: Collection of items in cart
+          type: array
+          items:
+            $ref: '#/components/schemas/CartLineItem'
+        subTotal:
+          description: The computed amount of cart's items
+          type: number
+          format: double
+        currency:
+          $ref: '#/components/schemas/Currency'
+    CartUpdateRequest:
+      description: Request body to update customer's shopping cart
+      type: object
+      properties:
+        currency:
+          $ref: '#/components/schemas/Currency'
     OrderResponse:
       description: Order response
       type: object
@@ -528,43 +642,12 @@ components:
             status: 404
             title: Not Found
             detail: Resource not found
-  parameters:
-    PathCustomerID:
-      name: customerID
-      in: path
-      description: Customer's identifier
-      required: true
-      schema:
-        type: string
-        format: uuid
-    PathCartItemID:
-      name: cartItemID
-      in: path
-      description: Cart's item identifier
-      required: true
-      schema:
-        type: string
-        format: uuid
-    QueryCustomerID:
-      name: customerID
-      in: query
-      description: Customer's identifier
-      schema:
-        type: string
-        format: uuid
-    PathOrderID:
-      name: orderID
-      in: path
-      description: Order's identifier
-      required: true
-      schema:
-        type: string
-        format: uuid
 x-tagGroups:
   - name: API
     tags:
-      - Customer
+      - Inventory
       - Cart
+      - Customer
       - Order
       - Payment
       - Shipment
