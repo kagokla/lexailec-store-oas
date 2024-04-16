@@ -1,0 +1,5 @@
+name: page
+in: query
+description: Specify the page number to retrieve
+schema:
+  type: integer

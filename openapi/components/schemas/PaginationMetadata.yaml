@@ -1,0 +1,17 @@
+description: Pagination metadata
+type: object
+properties:
+  page:
+    description: Current page
+    type: integer
+    readOnly: true
+  size:
+    description: Number of entries in the current page
+    type: integer
+    example: 1
+    readOnly: true
+  total:
+    description: number of total entries across all pages
+    type: integer
+    example: 1
+    readOnly: true
